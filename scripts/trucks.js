@@ -46,7 +46,7 @@ var getTrucksForLocation = function(locationName, data) {
 }
 
 var locationToString = function(trucksArray, location) {
-    var s = `\n${location}\n`;
+    var s = "\n" + location + "\n";
     s = s + trucksArray.join("\n")
     s = s + "\n"
     return s;
