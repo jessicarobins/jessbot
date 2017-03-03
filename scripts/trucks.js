@@ -46,7 +46,7 @@ var getTrucksForLocation = function(locationName, data) {
 }
 
 var locationToString = function(trucksArray, location) {
-    var s = "\n" + location + "\n";
+    var s = "\n*" + location + "*\n";
     s = s + trucksArray.join("\n")
     s = s + "\n"
     return s;
@@ -54,7 +54,7 @@ var locationToString = function(trucksArray, location) {
 
 module.exports = function(robot) {
     robot.respond(/truck me/i, function(msg){
-        var truckString = '';
+        var truckString = '_Here are the trucks near you!_';
         
         requestTruckData()
             .then(function(truckData) {
