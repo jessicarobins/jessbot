@@ -6,7 +6,9 @@
   "description": "A simple helpful robot for your Company",
   "dependencies": {
     "axios": "^0.15.3",
+    "bluebird": "^3.5.0",
     "geolib": "^2.0.22",
+    "github": "^11.0.0",
     "hubot": "^2.19.0",
     "hubot-diagnostics": "0.0.1",
     "hubot-google-images": "^0.2.6",
@@ -23,6 +25,6 @@
     "lodash": "^4.17.4"
   },
   "engines": {
-    "node": "4.0.x"
+    "node": "8.5.x"
   }
 }
