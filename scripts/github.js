@@ -20,26 +20,38 @@ const getPRInfo = function({owner, repo, number}) {
 }
 
 const formatGHInfo = function(info) {
+    
+    const assignees = info.assignees.reduce((a, value) => {
+        return a.concat(value.login)
+    }, []).join('\n') || 'none'
+
+    const requests = info.requested_reviewers.reduce((a, value) => {
+        return a.concat(value.login)
+    }, []).join('\n') || 'none'    
+
     return {
-        attachments: [
-            {
-                "author_name": info.user.login,
-                title: info.title,
-                text: info.body,
-                fields: [
-                    {
-                        title: "State",
-                        value: info.body,
-                        short: true
-                    },
-                    {
-                        title: "Base",
-                        value: info.base.ref,
-                        short: true
-                    }
-                ]
-            }
-        ]
+        attachments: [{
+            "author_name": info.user.login,
+            title: info.title,
+            text: info.body,
+            fields: [{
+                title: "State",
+                value: info.state,
+                short: true
+            }, {
+                title: "Base",
+                value: info.base.ref,
+                short: true
+            }, {
+                title: "Assignees",
+                value: assignees,
+                short: true
+            }, {
+                title: "Requested Reviewers",
+                value: requests,
+                short: true
+            }]
+        }]
     }
 }
 
@@ -47,6 +59,7 @@ const sendMessage = async function(msg) {
     const [, owner, repo, number] = msg.match
     try {
         const {data} = await getPRInfo({owner, repo, number})
+        console.log(data)
         const formattedInfo = formatGHInfo(data)
         msg.send(formattedInfo)
     } catch(err) {
